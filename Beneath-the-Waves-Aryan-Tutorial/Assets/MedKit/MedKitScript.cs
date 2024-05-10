@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class MedKitScript : MonoBehaviour
 {
-    private int heal = 33;
+    private float heal = 33;
     private bool destroyed = false;
 
     private Player player;
-    private int HP;
-    private int MAXHP;
+    private float HP;
+    private float MAXHP;
 
     // Start is called before the first frame update
     void Start()
@@ -31,8 +31,7 @@ public class MedKitScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
-        if (collision.gameObject.tag == "Player" && destroyed == false && HP < MAXHP)
+        if (collision.gameObject.tag == "Player" && destroyed == false)
         {
             Destroy(gameObject);
             destroyed = true;

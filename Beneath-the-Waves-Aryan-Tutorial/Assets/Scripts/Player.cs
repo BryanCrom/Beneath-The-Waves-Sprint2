@@ -3,13 +3,55 @@ using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    private readonly int MAXHP;
-    public int HP = 100;
+    [SerializeField]
+    private readonly float MAXHP = 100;
+    private float HP;
+    public float chipSpeed = 2f;
 
-    public void takeDamage(int damage)
+    private float lerpTimer;
+    public Image frontHealthBar;
+    public Image backHealthBar;
+
+    void Start()
+    {
+        HP = MAXHP;
+    }
+
+    void Update()
+    {
+        HP = Mathf.Clamp(HP, 0, MAXHP);
+        UpdateHealthUI();
+    }
+
+    public void UpdateHealthUI()
+    {
+        Debug.Log(HP);
+        float fillF = frontHealthBar.fillAmount;
+        float fillB = backHealthBar.fillAmount;
+        float hFraction = HP / MAXHP;
+        if (fillB > hFraction)
+        {
+            frontHealthBar.fillAmount = hFraction;
+            backHealthBar.color = Color.grey;
+            lerpTimer += Time.deltaTime;
+            float percentComplete = lerpTimer / chipSpeed;
+            backHealthBar.fillAmount = Mathf.Lerp(fillB, hFraction, percentComplete);
+        }
+        if (fillF < hFraction)
+        {
+            backHealthBar.color = Color.green;
+            backHealthBar.fillAmount = hFraction;
+            lerpTimer += Time.deltaTime;
+            float percentComplete = lerpTimer / chipSpeed;
+            frontHealthBar.fillAmount = Mathf.Lerp(fillF, hFraction, percentComplete);
+        }
+    }
+
+    public void takeDamage(float damage)
     {
         HP -= damage;
 
@@ -21,14 +63,16 @@ public class Player : MonoBehaviour
         {
             print("HIT!");
         }
+        lerpTimer = 0f;
     }
-    public void healDamage(int heal)
+    public void healDamage(float heal)
     {
         HP += heal;
-        if(HP > 100)
+        if(HP > MAXHP)
         {
-            HP = 100;
+            HP = MAXHP;
         }
+        lerpTimer = 0f;
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -40,12 +84,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    public int getHP()
+    public float getHP()
     {
         return HP;
     }
 
-    public int getMAXHP()
+    public float getMAXHP()
     {
         return MAXHP;
     }
