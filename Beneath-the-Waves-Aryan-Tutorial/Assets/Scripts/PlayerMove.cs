@@ -92,11 +92,14 @@ public class PlayerMove : MonoBehaviour
             walkSpeed = 6f;
             runSpeed = 12f;
         }
+        Debug.Log(movementVector);
 
     }
 
     void MovePlayer()
     {
+        Debug.Log(movementVector * Time.deltaTime);
+
         myCC.Move(movementVector * Time.deltaTime);
     }
 }
