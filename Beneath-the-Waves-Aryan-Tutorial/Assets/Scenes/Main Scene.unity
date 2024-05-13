@@ -808,7 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00dbfbd832c904e4d95addaf78dc5633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chipSpeed: 2
+  chipSpeed: 5
   frontHealthBar: {fileID: 186930480}
   backHealthBar: {fileID: 418072257}
 --- !u!136 &96293957
