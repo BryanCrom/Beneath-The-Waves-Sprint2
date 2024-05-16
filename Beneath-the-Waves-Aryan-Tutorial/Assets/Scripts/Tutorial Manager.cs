@@ -17,7 +17,7 @@ public class TutorialManager : MonoBehaviour
         "Left click to shoot the enemies!",
         "Tutorial Complete!"
     };
-    public float instructionDelay = 2f; // Adjust this value as needed
+    public float instructionDelay = 2f;
 
     private void Start()
     {
@@ -55,7 +55,6 @@ public class TutorialManager : MonoBehaviour
                 return Input.GetKey(KeyCode.LeftControl);
             case 3:
                 return Input.GetKey(KeyCode.Space);
-            // Add similar trigger conditions for other instructions
             case 4:
                 return true;
             case 5:
