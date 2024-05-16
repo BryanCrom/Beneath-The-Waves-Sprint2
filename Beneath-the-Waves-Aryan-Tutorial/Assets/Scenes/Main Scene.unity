@@ -808,6 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00dbfbd832c904e4d95addaf78dc5633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: 0
   chipSpeed: 2
   frontHealthBar: {fileID: 186930480}
   backHealthBar: {fileID: 418072257}
@@ -10469,7 +10470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 1133422172}
-  fishmanDamage: 10
+  fishmanDamage: 2
 --- !u!136 &938638419
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -18476,7 +18477,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.113, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1400169988181531981}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18499,7 +18500,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2099975277
 MeshRenderer:
@@ -18508,7 +18509,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2099975274}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -24173,7 +24174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 2099975279}
-  fishmanDamage: 10
+  fishmanDamage: 2
 --- !u!114 &6550346670028836105
 MonoBehaviour:
   m_ObjectHideFlags: 0
