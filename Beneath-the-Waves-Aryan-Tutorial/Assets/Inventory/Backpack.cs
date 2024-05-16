@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Backpack : MonoBehaviour
 {
-    bool destroyed = false;
-
     private InventoryManager inventoryManager;
 
     // Start is called before the first frame update
@@ -14,12 +12,11 @@ public class Backpack : MonoBehaviour
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Player" && destroyed == false)
+        if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            destroyed = true;
             inventoryManager.inventoryAccess = true;
         }
     }
