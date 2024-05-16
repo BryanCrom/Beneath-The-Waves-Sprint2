@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -808,7 +808,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00dbfbd832c904e4d95addaf78dc5633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chipSpeed: 5
+  HP: 0
+  chipSpeed: 2
   frontHealthBar: {fileID: 186930480}
   backHealthBar: {fileID: 418072257}
 --- !u!136 &96293957
@@ -830,8 +831,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Height: 3
+  m_Radius: 0.5
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &96293958
@@ -4302,7 +4303,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -10283,14 +10284,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -1757404621286744477, guid: 52f992404acbdfe449f93b8ba25267d7, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -1757404621286744477, guid: 52f992404acbdfe449f93b8ba25267d7, type: 3}
-      propertyPath: m_ProvidesContacts
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6326346241371711371, guid: 52f992404acbdfe449f93b8ba25267d7, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.25
@@ -10477,7 +10470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 1133422172}
-  fishmanDamage: 10
+  fishmanDamage: 2
 --- !u!136 &938638419
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -14296,7 +14289,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -14642,7 +14635,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c3afc3901cac441b0c161f0449851f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heal: 33
 --- !u!65 &1603340006
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14658,7 +14650,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -18005,7 +17997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c3afc3901cac441b0c161f0449851f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heal: 33
 --- !u!65 &2037733000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18021,7 +18012,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -18486,7 +18477,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.113, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1400169988181531981}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18509,7 +18500,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2099975277
 MeshRenderer:
@@ -18518,7 +18509,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2099975274}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -24183,7 +24174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 2099975279}
-  fishmanDamage: 10
+  fishmanDamage: 2
 --- !u!114 &6550346670028836105
 MonoBehaviour:
   m_ObjectHideFlags: 0
