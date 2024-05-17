@@ -16,19 +16,17 @@ public class Key : MonoBehaviour
 
     private InventoryManager inventoryManager;
 
-    private bool destroyed = false; 
     // Start is called before the first frame update
     void Start()
     {
         inventoryManager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Player" && destroyed == false)
+        if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            destroyed = true;
             inventoryManager.AddKey(keyName, sprite, keyDescription);
 
         }

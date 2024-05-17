@@ -9,12 +9,16 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private readonly float MAXHP = 100;
-    private float HP;
+    public float HP;
     public float chipSpeed = 2f;
 
     private float lerpTimer;
     public Image frontHealthBar;
     public Image backHealthBar;
+
+    //cooldown to take damage
+    public bool canTakeDamage = true;
+    public float damageCooldown = 1.5f;
 
     void Start()
     {
@@ -29,7 +33,6 @@ public class Player : MonoBehaviour
 
     public void UpdateHealthUI()
     {
-        Debug.Log(HP);
         float fillF = frontHealthBar.fillAmount;
         float fillB = backHealthBar.fillAmount;
         float hFraction = HP / MAXHP;
@@ -63,23 +66,26 @@ public class Player : MonoBehaviour
         {
             print("HIT!");
         }
+
+        StartCoroutine(DamageCooldown());
         lerpTimer = 0f;
     }
     public void healDamage(float heal)
     {
         HP += heal;
-        if(HP > MAXHP)
+        if (HP > MAXHP)
         {
             HP = MAXHP;
         }
         lerpTimer = 0f;
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("EnemyHand"))
+        if (other.gameObject.CompareTag("EnemyHand") && canTakeDamage == true)
         {
             print("Player is colliding w enemyhand");
+            StartCoroutine(DamageCooldown());   
             takeDamage(other.gameObject.GetComponent<FishmanHand>().damage);
         }
     }
@@ -92,5 +98,13 @@ public class Player : MonoBehaviour
     public float getMAXHP()
     {
         return MAXHP;
+    }
+
+    //add cooldown 
+    private IEnumerator DamageCooldown()
+    {
+        canTakeDamage = false;
+        yield return new WaitForSeconds(damageCooldown);
+        canTakeDamage = true;
     }
 }
