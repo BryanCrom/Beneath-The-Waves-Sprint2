@@ -711,6 +711,7 @@ GameObject:
   - component: {fileID: 96293956}
   - component: {fileID: 96293958}
   - component: {fileID: 96293957}
+  - component: {fileID: 96293959}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -864,6 +865,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &96293959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96293950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29fa4b2cb6d13f244a07608de581ac44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &98135829
 GameObject:
   m_ObjectHideFlags: 0
@@ -4165,9 +4178,10 @@ GameObject:
   - component: {fileID: 686230742}
   - component: {fileID: 686230741}
   - component: {fileID: 686230744}
+  - component: {fileID: 686230745}
   m_Layer: 0
   m_Name: PlayerModel
-  m_TagString: Untagged
+  m_TagString: PlayerModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4272,7 +4286,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d255b5091c5154682a325727cb00e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoCount: 20
+--- !u!114 &686230745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686230739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f8caeb483a3da438bdecfc48c9eec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletsToAdd: 5
 --- !u!1 &687830610 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7030378209745065368, guid: 52f992404acbdfe449f93b8ba25267d7, type: 3}

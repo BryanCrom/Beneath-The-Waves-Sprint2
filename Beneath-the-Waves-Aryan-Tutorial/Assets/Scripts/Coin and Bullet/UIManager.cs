@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -22,52 +20,27 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateCoinCount(int coins)
+    public void UpdateCount(int value, TextMeshProUGUI textUI, string prefix)
     {
-        if (coinText != null)
+        if (textUI != null)
         {
-            coinText.text = "Coins: " + coins;
+            textUI.text = prefix + value;
         }
         else
         {
-            Debug.LogError("Coin text component not set in UIManager.");
+            Debug.LogError("Text component is null!");
         }
     }
 
-    public void UpdateAmmoCount(int bullets)
+    public static void SafeUpdateCount(int value, TextMeshProUGUI textUI, string prefix)
     {
-        if (ammoText != null)
+        if (Instance != null && textUI != null)
         {
-            ammoText.text = "Ammo: " + bullets;
+            Instance.UpdateCount(value, textUI, prefix);
         }
         else
         {
-            Debug.LogError("Ammo text component not set in UIManager.");
-        }
-    }
-
-    public static void SafeUpdateCoinCount(int coins)
-    {
-        if (Instance != null)
-        {
-            Instance.UpdateCoinCount(coins);
-        }
-        else
-        {
-            Debug.LogError("UIManager instance is null when trying to update coins.");
-        }
-    }
-
-    public static void SafeUpdateAmmoCount(int ammo)
-    {
-        if (Instance != null && Instance.ammoText != null)
-        {
-            Instance.ammoText.text = "Ammo: " + ammo;
-        }
-        else
-        {
-            Debug.LogError("UIManager instance or ammo text is null!");
+            Debug.LogError("UIManager instance or text component is null!");
         }
     }
 }
-
