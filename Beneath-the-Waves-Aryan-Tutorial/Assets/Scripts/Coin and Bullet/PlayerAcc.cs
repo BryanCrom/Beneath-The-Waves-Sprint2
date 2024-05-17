@@ -2,54 +2,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class PlayerAccount
+public class PlayerAccount : MonoBehaviour
 {
-    private static int coins = 0;
-    private static int bullets = 0;
+    public static PlayerAccount Instance;
+    private int coins = 0;
+    private int bullets = 20;
 
-    // Adds coins and updates the UI safely
-    public static void AddCoin(int amount)
+    // Declare the events
+    public event System.Action<int> OnCoinsChanged;
+    public event System.Action<int> OnBulletsChanged;
+
+    void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Ensure only one instance exists
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Persist across scenes
+        }
+    }
+
+    public void AddCoins(int amount)
+    {
+        if (amount < 0)
+        {
+            Debug.LogError("Attempt to add a negative amount of coins.");
+            return;
+        }
         coins += amount;
-        Debug.Log("Coins: " + coins);
-
-        // Check if UIManager instance is available before trying to update the UI
-        if (UIManager.Instance != null)
-        {
-            UIManager.SafeUpdateCoinCount(coins);
-        }
-        else
-        {
-            Debug.LogError("Failed to update coins count: UIManager instance is null.");
-        }
+        Debug.Log($"Coins added. Total coins: {coins}");
+        UIManager.SafeUpdateCount(coins, UIManager.Instance.coinText, "Coins: ");
+        OnCoinsChanged?.Invoke(coins);
     }
 
-    // Adds bullets and updates the UI safely
-    public static void AddBullets(int amount)
+    public void AddBullets(int amount)
     {
+        if (amount < 0)
+        {
+            Debug.LogError("Attempt to add a negative amount of bullets.");
+            return;
+        }
         bullets += amount;
-        Debug.Log("Bullets: " + bullets);
-
-        // Check if UIManager instance is available before trying to update the UI
-        if (UIManager.Instance != null)
-        {
-            UIManager.Instance.UpdateAmmoCount(bullets);
-        }
-        else
-        {
-            Debug.LogError("Failed to update bullets count: UIManager instance is null.");
-        }
+        Debug.Log($"Bullets added. Total bullets: {bullets}");
+        UIManager.SafeUpdateCount(bullets, UIManager.Instance.ammoText, "Ammo: ");
+        OnBulletsChanged?.Invoke(bullets);
     }
 
-    // Returns the current amount of coins
-    public static int GetCoins()
+    public bool UseBullet()
     {
-        return coins;
+        if (bullets > 0)
+        {
+            bullets--;
+            UIManager.SafeUpdateCount(bullets, UIManager.Instance.ammoText, "Ammo: "); // Update UI here
+            Debug.Log($"Shot fired! Bullets left: {bullets}");
+            OnBulletsChanged?.Invoke(bullets);
+            return true;
+        }
+        Debug.LogError("Attempted to shoot but no bullets left!");
+        return false;
     }
 
-    // Returns the current amount of bullets
-    public static int GetBullets()
-    {
-        return bullets;
-    }
+    // Getters for coins and bullets
+    public int GetCoins() => coins;
+    public int GetBullets() => bullets;
 }
