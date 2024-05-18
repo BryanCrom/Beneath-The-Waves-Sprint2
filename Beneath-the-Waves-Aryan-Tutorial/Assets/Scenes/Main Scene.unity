@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -812,6 +812,8 @@ MonoBehaviour:
   chipSpeed: 2
   frontHealthBar: {fileID: 186930480}
   backHealthBar: {fileID: 418072257}
+  canTakeDamage: 1
+  damageCooldown: 1.5
 --- !u!136 &96293957
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -831,8 +833,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 1
+  m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &96293958
@@ -4303,7 +4305,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -14289,7 +14291,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -14635,6 +14637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c3afc3901cac441b0c161f0449851f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heal: 33
 --- !u!65 &1603340006
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14650,7 +14653,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -17997,6 +18000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c3afc3901cac441b0c161f0449851f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heal: 33
 --- !u!65 &2037733000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18012,7 +18016,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
