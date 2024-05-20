@@ -4,21 +4,13 @@ using UnityEngine;
 
 public class AmmoDecrement : MonoBehaviour
 {
-    public int ammoCount = 20;
-
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && ammoCount > 0)
+        // Check if the left mouse button is pressed and there are bullets left
+        if (Input.GetMouseButtonDown(0) && PlayerAccount.Instance.UseBullet())
         {
-            Shoot();
+            Debug.Log("Bullet shot!");
         }
     }
-
-    void Shoot()
-    {
-        ammoCount--;
-        UIManager.SafeUpdateAmmoCount(ammoCount);
-
-        Debug.Log("Shot fired! Ammo left: " + ammoCount);
-    }
 }
+

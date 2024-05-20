@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Waypoints
   - EnemyHand
+  - PlayerModel
   layers:
   - Default
   - TransparentFX
