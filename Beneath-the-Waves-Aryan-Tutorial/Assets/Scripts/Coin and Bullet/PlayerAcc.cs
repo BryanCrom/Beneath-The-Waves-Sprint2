@@ -65,6 +65,15 @@ public class PlayerAccount : MonoBehaviour
         return false;
     }
 
+    public void CompleteQuest()
+    {
+        if (QuestManager.Instance != null)
+        {
+            QuestManager.Instance.CompleteQuest();
+        }
+    }
+
+
     // Getters for coins and bullets
     public int GetCoins() => coins;
     public int GetBullets() => bullets;
