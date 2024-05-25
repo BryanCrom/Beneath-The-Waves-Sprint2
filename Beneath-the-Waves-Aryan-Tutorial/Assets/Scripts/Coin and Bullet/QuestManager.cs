@@ -41,7 +41,7 @@ public class QuestManager : MonoBehaviour
         if (currentQuest != null && !currentQuest.isCompleted)
         {
             // Assuming the quest is to kill one enemy, we mark it as completed
-            currentQuest.isCompleted = true;
+            //currentQuest.isCompleted = true;
             CompleteQuest();
         }
     }

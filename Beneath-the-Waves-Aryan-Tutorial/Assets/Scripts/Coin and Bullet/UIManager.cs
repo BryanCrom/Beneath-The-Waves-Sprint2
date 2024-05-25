@@ -3,7 +3,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance { get; private set; }
+    public static UIManager Instance;
     public TextMeshProUGUI ammoText;
     public TextMeshProUGUI coinText;
     public TextMeshProUGUI questText;

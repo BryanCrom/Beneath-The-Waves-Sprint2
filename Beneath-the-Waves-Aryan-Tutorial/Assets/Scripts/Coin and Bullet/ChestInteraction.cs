@@ -16,7 +16,7 @@ public class ChestInteraction : MonoBehaviour
     void Start()
     {
         // Create a new quest with a description and reward
-        Quest myQuest = new Quest("Defeat the enemy", 50);
+        chestQuest = new Quest("Defeat the enemy", 50);
     }
 
     void Update()
@@ -26,16 +26,15 @@ public class ChestInteraction : MonoBehaviour
             if (isOpen)
             {
                 CloseChest();
+            }
+            else
+            {
+                OpenChest();
                 if (!isQuestAccepted)
                 {
                     QuestManager.Instance.StartQuest(chestQuest);
                     isQuestAccepted = true;
                 }
-            }
-            else
-            {
-                OpenChest();
-                UIManager.Instance.ShowQuestWindow(chestQuest);
             }
         }
     }
@@ -44,13 +43,14 @@ public class ChestInteraction : MonoBehaviour
     {
         StartCoroutine(AnimateChest(openAngle));
         isOpen = true;
+        UIManager.Instance.ShowQuestWindow(chestQuest);
     }
 
     void CloseChest()
     {
         StartCoroutine(AnimateChest(closeAngle));
-        UIManager.Instance.HideQuestWindow();
         isOpen = false;
+        UIManager.Instance.HideQuestWindow();
     }
 
     IEnumerator AnimateChest(float targetAngle)
