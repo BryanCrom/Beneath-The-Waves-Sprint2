@@ -51,9 +51,9 @@ public class schoolMovement : MonoBehaviour
         previousTurn = previousTurn * smoothing + turnSpeed * (Random.value * 2.0f - 1.0f) * (1 - smoothing);
         transform.Rotate(0.0f, previousTurn, 0.0f, Space.Self);
         transform.position += transform.forward * forwardSpeed;
-        if (!fired) {
-            FishM clone = Instantiate<FishM>(fishMissle);
-            clone.setTarget(player);
-        }
+        //if (!fired) {
+            //FishM clone = Instantiate<FishM>(fishMissle);
+            //clone.setTarget(player);
+        //}
     }
 }
