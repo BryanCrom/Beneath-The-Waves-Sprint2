@@ -20,6 +20,10 @@ public class Player : MonoBehaviour
     public bool canTakeDamage = true;
     public float damageCooldown = 1.5f;
 
+    //Audio vars
+    public AudioClip hurtSound;
+    public AudioSource src;
+
     void Start()
     {
         HP = MAXHP;
@@ -56,6 +60,8 @@ public class Player : MonoBehaviour
 
     public void takeDamage(float damage)
     {
+        src.clip = hurtSound;
+        src.Play();
         HP -= damage;
 
         if (HP <= 0)
