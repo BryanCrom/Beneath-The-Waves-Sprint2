@@ -10,7 +10,7 @@ public class Coin : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            PlayerAccount.AddCoin(value);
+            PlayerAccount.Instance.AddCoins(value);  // Access via Singleton Instance
             Destroy(gameObject);
         }
     }

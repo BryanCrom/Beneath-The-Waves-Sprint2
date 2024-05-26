@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class MedKitScript : MonoBehaviour
 {
+    [SerializeField]
     private float heal = 33;
-    private bool destroyed = false;
 
     private Player player;
     private float HP;
@@ -29,12 +29,11 @@ public class MedKitScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Player" && destroyed == false)
+        if (collision.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            destroyed = true;
             player.healDamage(heal);
         }
     }

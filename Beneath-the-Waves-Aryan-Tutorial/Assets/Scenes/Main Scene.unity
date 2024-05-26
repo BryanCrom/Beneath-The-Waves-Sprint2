@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -711,6 +711,7 @@ GameObject:
   - component: {fileID: 96293956}
   - component: {fileID: 96293958}
   - component: {fileID: 96293957}
+  - component: {fileID: 96293959}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -808,9 +809,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00dbfbd832c904e4d95addaf78dc5633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HP: 0
   chipSpeed: 2
   frontHealthBar: {fileID: 186930480}
   backHealthBar: {fileID: 418072257}
+  canTakeDamage: 1
+  damageCooldown: 1.5
 --- !u!136 &96293957
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -826,12 +830,12 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 1
+  m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &96293958
@@ -861,6 +865,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &96293959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96293950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29fa4b2cb6d13f244a07608de581ac44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &98135829
 GameObject:
   m_ObjectHideFlags: 0
@@ -4162,9 +4178,10 @@ GameObject:
   - component: {fileID: 686230742}
   - component: {fileID: 686230741}
   - component: {fileID: 686230744}
+  - component: {fileID: 686230745}
   m_Layer: 0
   m_Name: PlayerModel
-  m_TagString: Untagged
+  m_TagString: PlayerModel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4269,7 +4286,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78d255b5091c5154682a325727cb00e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammoCount: 20
+--- !u!114 &686230745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686230739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f8caeb483a3da438bdecfc48c9eec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletsToAdd: 5
 --- !u!1 &687830610 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7030378209745065368, guid: 52f992404acbdfe449f93b8ba25267d7, type: 3}
@@ -4302,7 +4331,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -10469,7 +10498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 1133422172}
-  fishmanDamage: 10
+  fishmanDamage: 2
 --- !u!136 &938638419
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13102,7 +13131,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ammo: 0'
+  m_text: 'Ammo: 20'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14288,7 +14317,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -14634,6 +14663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c3afc3901cac441b0c161f0449851f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heal: 33
 --- !u!65 &1603340006
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14649,7 +14679,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -17996,6 +18026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c3afc3901cac441b0c161f0449851f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heal: 33
 --- !u!65 &2037733000
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18011,7 +18042,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -18476,7 +18507,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.113, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1400169988181531981}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18499,7 +18530,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2099975277
 MeshRenderer:
@@ -18508,7 +18539,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2099975274}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -24173,7 +24204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 2099975279}
-  fishmanDamage: 10
+  fishmanDamage: 2
 --- !u!114 &6550346670028836105
 MonoBehaviour:
   m_ObjectHideFlags: 0
