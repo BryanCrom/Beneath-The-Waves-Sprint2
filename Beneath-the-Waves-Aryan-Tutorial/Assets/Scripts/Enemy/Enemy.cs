@@ -45,16 +45,16 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(transform.position, 2.5f);
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 2.5f);
 
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawWireSphere(transform.position, 5f);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, 5f);
 
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawWireSphere(transform.position, 7.5f);
-    //}
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, 7.5f);
+    }
 
 }
