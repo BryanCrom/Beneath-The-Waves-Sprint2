@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
 
     private CharacterController myCC;
+    public float speed;
     public float walkSpeed = 6f;
     public float runSpeed = 9f;
     public float jumpPower = 3f;
@@ -16,6 +17,7 @@ public class PlayerMove : MonoBehaviour
 
     private Vector3 inputVector;
     private Vector3 movementVector;
+    [SerializeField]
     private float myGravity = 15f;
 
     private bool isRunning;
@@ -23,6 +25,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         myCC = GetComponent<CharacterController>();
+        speed = walkSpeed;
     }
 
     void Update()
@@ -43,22 +46,26 @@ public class PlayerMove : MonoBehaviour
         {
             if (isRunning)
             {
-                movementVector = (inputVector * runSpeed) + (Vector3.up * -myGravity);
+                speed = runSpeed;
+                movementVector = (inputVector * speed) + (Vector3.up * -myGravity);
             }
             else
             {
-                movementVector = (inputVector * walkSpeed) + (Vector3.up * -myGravity);
+                speed = walkSpeed;
+                movementVector = (inputVector * speed) + (Vector3.up * -myGravity);
             }
         }
         else
         {
             if (isRunning)
             {
-                movementVector = 0.6f * movementVector + 0.4f * (inputVector * runSpeed) + (Vector3.up * -myGravity);
+                speed = runSpeed;
+                movementVector = 0.6f * movementVector + 0.4f * (inputVector * speed) + (Vector3.up * -myGravity);
             }
             else
             {
-                movementVector = 0.6f * (inputVector * walkSpeed) + 0.4f * (Vector3.up * -myGravity);
+                speed = walkSpeed;
+                movementVector = 0.6f * (inputVector * speed) + 0.4f * (Vector3.up * -myGravity);
             }
         }
 
@@ -82,15 +89,13 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             myCC.height = crouchHeight;
-            walkSpeed = crouchSpeed;
-            runSpeed = crouchSpeed;
+            speed = crouchSpeed;
 
         }
         else
         {
             myCC.height = defaultHeight;
-            walkSpeed = 6f;
-            runSpeed = 12f;
+            speed = walkSpeed;
         }
 
     }
