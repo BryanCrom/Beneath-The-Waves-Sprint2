@@ -13,6 +13,11 @@ public class Enemy : MonoBehaviour
     public int enemyHealth = 100;
     public NavMeshAgent Agent { get => agent; }
 
+    //enemy fix
+    public float attackRange = 1.5f;
+    public int damage = 10;
+    public float attackCooldown = 2.0f;
+    private bool canAttack = true;
 
     void Start()
     {
@@ -23,7 +28,10 @@ public class Enemy : MonoBehaviour
         //enemyManager = FindObjectOfType<EnemyManager>(); // Or assign it through inspector
     }
 
-
+    private void Update()
+    {
+        CheckPlayerinRange();
+    }
     public void takeDamage(int damage)
     {
         enemyHealth -= damage;
@@ -35,7 +43,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            animator.SetTrigger("hit");
+            animator.SetTrigger(" enemy hit");
         }
     }
 
@@ -45,16 +53,32 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void CheckPlayerinRange()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, attackRange);
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player") && canAttack)
+            {
+                Debug.Log("Player within attack range!");
+                hit.GetComponent<Player>().takeDamage(damage);
+                StartCoroutine(AttackCooldown());
+                break;
+            }
+        }
+    }
+
+    private IEnumerator AttackCooldown()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 2.5f);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, 5f);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, 7.5f);
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
-
 }

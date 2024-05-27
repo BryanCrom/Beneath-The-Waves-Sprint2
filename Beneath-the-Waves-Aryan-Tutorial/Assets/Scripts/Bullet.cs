@@ -7,25 +7,14 @@ public class Bullet : MonoBehaviour
     public int damage;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Target"))
-        {
-            //test if the bullet hits
-            print("hit" + collision.gameObject.name);
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
-        }
-
         if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<Enemy>().takeDamage(damage);
             Destroy(gameObject);
         }
-
-        if (collision.gameObject.CompareTag("Wall"))
+        else if (!gameObject.CompareTag("Player") && !gameObject.CompareTag("Weapon"))
         {
-            //BulletImpactEffect(collision);
             Destroy(gameObject);
-        }
-       
+        } 
     }
 }

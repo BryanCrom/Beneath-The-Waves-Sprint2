@@ -2291,7 +2291,7 @@ GameObject:
   - component: {fileID: 834929586}
   m_Layer: 6
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16683,7 +16683,7 @@ GameObject:
   - component: {fileID: 5379696999433141455}
   m_Layer: 0
   m_Name: sword_singer
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17563,7 +17563,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8171165431646946666}
   - component: {fileID: 8804008433275953108}
-  - component: {fileID: 8804008433275953107}
   - component: {fileID: 8804008433275953105}
   - component: {fileID: 8804008433275953110}
   - component: {fileID: 8804008433275953111}
@@ -17596,20 +17595,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8804008433275953107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8804008433275953104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 477db325c954b844280b4737c6720d56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hand: {fileID: 795463859}
-  fishmanDamage: 10
 --- !u!114 &8804008433275953108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17623,6 +17608,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHealth: 100
+  attackRange: 2.5
+  damage: 10
+  attackCooldown: 1.5
 --- !u!136 &8804008433275953110
 CapsuleCollider:
   m_ObjectHideFlags: 0
