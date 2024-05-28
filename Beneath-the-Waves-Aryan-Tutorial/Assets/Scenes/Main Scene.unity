@@ -930,12 +930,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3e7b25150828e4ba4c01e2e648ff43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   walkSpeed: 6
   runSpeed: 12
   jumpPower: 7
   defaultHeight: 2
   crouchHeight: 1
   crouchSpeed: 3
+  myGravity: 15
 --- !u!114 &96293956
 MonoBehaviour:
   m_ObjectHideFlags: 0
