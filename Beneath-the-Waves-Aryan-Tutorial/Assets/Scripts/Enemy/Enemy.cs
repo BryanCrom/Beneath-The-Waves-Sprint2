@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,6 +20,9 @@ public class Enemy : MonoBehaviour
     public float attackCooldown = 2.0f;
     private bool canAttack = true;
 
+    //check if enemy dead 
+    //fixes the issue when player walkes close to the enemy's body and still takes damage
+    private bool isDead = false;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -38,12 +42,13 @@ public class Enemy : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
+            isDead = true;
             animator.SetTrigger("death");
             StartCoroutine(DestroyAfterDelay(4f));
         }
         else
         {
-            animator.SetTrigger(" enemy hit");
+            animator.SetTrigger("hit");
         }
     }
 
@@ -55,6 +60,8 @@ public class Enemy : MonoBehaviour
 
     private void CheckPlayerinRange()
     {
+        if (isDead) return;
+
         Collider[] hits = Physics.OverlapSphere(transform.position, attackRange);
 
         foreach (var hit in hits)
