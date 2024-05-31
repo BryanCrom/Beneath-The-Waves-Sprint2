@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision detected with: " + collision.gameObject.name);
+        //Debug.Log("Collision detected with: " + collision.gameObject.name);
 
         // Check if the collided object or its parent has the Enemy script
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
