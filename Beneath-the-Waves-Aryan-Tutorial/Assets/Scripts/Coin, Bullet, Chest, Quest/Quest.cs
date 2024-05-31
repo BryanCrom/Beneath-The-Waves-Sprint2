@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Quest
 {
+    // Variable Declaration
     public string description;
     public int reward;
     public bool isCompleted;
 
+    // Constructor
     public Quest(string description, int reward)
     {
         this.description = description;
