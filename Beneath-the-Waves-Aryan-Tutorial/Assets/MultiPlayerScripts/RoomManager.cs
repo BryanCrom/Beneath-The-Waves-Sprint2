@@ -5,12 +5,16 @@ using Photon.Pun;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
-     void Start()
+    public GameObject player;
+    [Space]
+    public Transform spawnPoint;
+
+    void Start()
     {
         Debug.Log("Connecting...");
         PhotonNetwork.ConnectUsingSettings();
     }
-    // Update is called once per frame
+
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
@@ -18,13 +22,18 @@ public class RoomManager : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
     }
 
-        public override void OnJoinedLobby()
+    public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
         PhotonNetwork.JoinOrCreateRoom("test", null, null);
-        Debug.Log("We are connected and in the room");
+        Debug.Log("We are connected and in the lobby");
     }
 
-    
-
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        Debug.Log("We are connected and in the room");
+        GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity);
+        _player.GetComponent<PlayerSetup>().IsLocalPlayer();
+    }
 }
