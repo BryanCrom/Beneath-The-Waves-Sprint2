@@ -17,14 +17,14 @@ public class PlayerInteract : MonoBehaviour
     void Start()
     {
         playerUI = GetComponent<PlayerUI>();
+
+        //initailise prompt text as an empty string
+        playerUI.updateText(string.Empty);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //initailise prompt text as an empty string
-        playerUI.updateText(string.Empty);
-
         //create a ray at the center of the camera, shooting outwards
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * distance);
@@ -42,6 +42,10 @@ public class PlayerInteract : MonoBehaviour
                     interactable.baseInteract();
                 }
             }
+        }
+        else
+        {
+            playerUI.updateText(string.Empty);
         }
     }
 }
