@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     //check if enemy dead 
     //fixes the issue when player walkes close to the enemy's body and still takes damage
     private bool isDead = false;
+
+    Transform player;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -30,6 +32,7 @@ public class Enemy : MonoBehaviour
 
         //initialise enemy manager
         //enemyManager = FindObjectOfType<EnemyManager>(); // Or assign it through inspector
+
     }
 
     private void Update()
@@ -82,7 +85,6 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
