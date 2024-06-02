@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private readonly float MAXHP = 100;
+    private float MAXHP = 100f;
     public float HP;
     public float chipSpeed = 2f;
 
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
         if (!canTakeDamage) return;
         HP -= damage;
 
-        if (HP <= 0)
+        if (HP <= 0f)
         {
             print("YOU ARE DEAD!");
         }
