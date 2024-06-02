@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
+    private void Start()
+    {
+        // Ignore collision with the enemy
+        Collider[] enemyColliders = GameObject.FindGameObjectWithTag("Enemy").GetComponentsInChildren<Collider>();
+        foreach (Collider collider in enemyColliders)
+        {
+            Physics.IgnoreCollision(GetComponent<Collider>(), collider);
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         Transform hitTransform = collision.transform;

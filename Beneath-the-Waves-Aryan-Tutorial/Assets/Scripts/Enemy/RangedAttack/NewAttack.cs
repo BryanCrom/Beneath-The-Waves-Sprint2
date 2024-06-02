@@ -12,12 +12,14 @@ public class NewAttack : BaseState
 
     public override void Enter()
     {
-        //shootingEnemy.SetAttacking(true);
+        shootingEnemy.SetAttacking(true);
     }
 
     public override void Exit()
     {
-        //shootingEnemy.SetAttacking(false);
+        shootingEnemy.SetAttacking(false);
+        shootingEnemy.SetMovingLeft(false);
+        shootingEnemy.SetMovingRight(false);
     }
 
     public override void Perform()
@@ -34,7 +36,20 @@ public class NewAttack : BaseState
             }
             if ( strafe > Random.Range(3, 7 )) 
             {
-                shootingEnemy.Agent.SetDestination(shootingEnemy.transform.position + (Random.insideUnitSphere * 5));
+                Vector3 strafeDirection = Random.insideUnitSphere * 5;
+                shootingEnemy.Agent.SetDestination(shootingEnemy.transform.position + strafeDirection);
+
+                if (strafeDirection.x > 0)
+                {
+                    shootingEnemy.SetMovingRight(true);
+                    shootingEnemy.SetMovingLeft(false);
+                }
+                else
+                {
+                    shootingEnemy.SetMovingRight(false);
+                    shootingEnemy.SetMovingLeft(true);
+                }
+
                 strafe = 0;
             }
         }
