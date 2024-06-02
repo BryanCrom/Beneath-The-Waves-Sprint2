@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour{
+public class InventoryManager : MonoBehaviour
+{
     
     public GameObject Inventory;
     private bool menuActivated;
@@ -12,16 +13,10 @@ public class InventoryManager : MonoBehaviour{
 
     public bool inventoryAccess = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Inventory") && menuActivated && inventoryAccess)
+        if(inventoryToggle(Input.GetButtonDown("Inventory"), menuActivated, inventoryAccess))
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -30,7 +25,7 @@ public class InventoryManager : MonoBehaviour{
             DeselectAllSlots();
             weaponSlot[0].DeselectDescription();
         }
-        else if (Input.GetButtonDown("Inventory") && !menuActivated && inventoryAccess)
+        else if (inventoryToggle(Input.GetButtonDown("Inventory"), !menuActivated, inventoryAccess))
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -74,5 +69,10 @@ public class InventoryManager : MonoBehaviour{
         {
             keySlot[i].selectedShader.SetActive(false);
         }
+    }
+
+    public bool inventoryToggle(bool pressed, bool active, bool access)
+    {
+        return pressed && active && access;
     }
 }
