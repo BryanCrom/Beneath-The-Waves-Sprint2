@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,7 +14,17 @@ public class Enemy : MonoBehaviour
     public int enemyHealth = 100;
     public NavMeshAgent Agent { get => agent; }
 
+    //enemy fix
+    public float attackRange = 1.5f;
+    public int damage = 10;
+    public float attackCooldown = 2.0f;
+    private bool canAttack = true;
 
+    //check if enemy dead 
+    //fixes the issue when player walkes close to the enemy's body and still takes damage
+    private bool isDead = false;
+
+    Transform player;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -21,15 +32,20 @@ public class Enemy : MonoBehaviour
 
         //initialise enemy manager
         //enemyManager = FindObjectOfType<EnemyManager>(); // Or assign it through inspector
+
     }
 
-
+    private void Update()
+    {
+        CheckPlayerinRange();
+    }
     public void takeDamage(int damage)
     {
         enemyHealth -= damage;
 
         if (enemyHealth <= 0)
         {
+            isDead = true;
             animator.SetTrigger("death");
             StartCoroutine(DestroyAfterDelay(4f));
         }
@@ -45,16 +61,33 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(transform.position, 2.5f);
+    private void CheckPlayerinRange()
+    {
+        if (isDead) return;
 
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawWireSphere(transform.position, 5f);
+        Collider[] hits = Physics.OverlapSphere(transform.position, attackRange);
 
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawWireSphere(transform.position, 7.5f);
-    //}
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player") && canAttack)
+            {
+                Debug.Log("Player within attack range!");
+                hit.GetComponent<Player>().takeDamage(damage);
+                StartCoroutine(AttackCooldown());
+                break;
+            }
+        }
+    }
 
+    private IEnumerator AttackCooldown()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
 }
