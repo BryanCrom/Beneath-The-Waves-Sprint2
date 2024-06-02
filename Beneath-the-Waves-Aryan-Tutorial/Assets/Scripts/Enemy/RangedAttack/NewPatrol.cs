@@ -9,12 +9,12 @@ public class NewPatrol : BaseState
     public float waitTime;
     public override void Enter()
     {
-        //shootingEnemy.SetPatrolling(true);
+        shootingEnemy.SetPatrolling(true);
     }
 
     public override void Exit()
     {
-        //shootingEnemy.SetPatrolling(false);
+        shootingEnemy.SetPatrolling(false);
     }
 
     public override void Perform()
@@ -23,6 +23,7 @@ public class NewPatrol : BaseState
 
         if (shootingEnemy.canSeePlayer())
         {
+            shootingEnemy.SetAttacking(true);
             stateMach.ChangeState(new NewAttack());
         }
     }
