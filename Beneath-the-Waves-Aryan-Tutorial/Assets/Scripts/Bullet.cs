@@ -5,27 +5,35 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int damage;
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Target"))
+        //Debug.Log("Collision detected with: " + collision.gameObject.name);
+
+        // Check if the collided object or its parent has the Enemy script
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+        if (enemy == null && collision.transform.parent != null)
         {
-            //test if the bullet hits
-            print("hit" + collision.gameObject.name);
+            enemy = collision.transform.parent.GetComponent<Enemy>();
+        }
+
+        if (enemy != null)
+        {
+            Debug.Log("Hit Enemy: " + collision.gameObject.name);
+            enemy.takeDamage(damage);
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.CompareTag("Target"))
+        {
+            // Test if the bullet hits
+            Debug.Log("Hit Target: " + collision.gameObject.name);
             Destroy(gameObject);
             Destroy(collision.gameObject);
         }
-
-        if (collision.gameObject.CompareTag("Enemy"))
+        else if (collision.gameObject.CompareTag("Wall"))
         {
-            collision.gameObject.GetComponent<Enemy>().takeDamage(damage);
+            Debug.Log("Hit Wall: " + collision.gameObject.name);
             Destroy(gameObject);
         }
-
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            //BulletImpactEffect(collision);
-            Destroy(gameObject);
-        }
-       
     }
 }
