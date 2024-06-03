@@ -26,6 +26,12 @@ public class Bullet : MonoBehaviour
             //BulletImpactEffect(collision);
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            collision.gameObject.GetComponent<schoolMovement>().takeDamage(1);
+            Destroy(gameObject);
+        }
        
     }
 }
