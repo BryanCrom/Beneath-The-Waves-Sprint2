@@ -5,10 +5,10 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Scripts",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "Unity.VisualScripting.State"
     ],
-    "includePlatforms": [       
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
