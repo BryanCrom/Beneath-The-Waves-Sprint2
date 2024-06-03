@@ -23,6 +23,20 @@ public class Bullet : MonoBehaviour
             enemy.takeDamage(damage);
             Destroy(gameObject);
         }
+
+        //test
+        ShootingEnemy shootingEnemy = collision.gameObject.GetComponent<ShootingEnemy>();
+        if (shootingEnemy == null && collision.transform.parent != null)
+        {
+            shootingEnemy = collision.transform.parent.GetComponent<ShootingEnemy>();
+        }
+
+        if (shootingEnemy != null)
+        {
+            Debug.Log("Hit Enemy: " + collision.gameObject.name);
+            shootingEnemy.takeDamage(damage);
+            Destroy(gameObject);
+        }
         else if (collision.gameObject.CompareTag("Target"))
         {
             // Test if the bullet hits
