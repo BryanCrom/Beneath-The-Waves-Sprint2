@@ -50,7 +50,7 @@ public class ShootingEnemy : MonoBehaviour
             if (Vector3.Distance(transform.position, player.transform.position) < sightDistance)
             {
                 Vector3 target = player.transform.position - transform.position;
-                float angle = Vector3.Angle(target, transform.forward);
+                float angle = Vector3.Angle(transform.forward, target);
 
                 if (angle >= -fieldOfView && angle <= fieldOfView)
                 {
@@ -76,6 +76,10 @@ public class ShootingEnemy : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
+            SetPatrolling(false);
+            SetAttacking(false);
+            SetMovingLeft(false);
+            SetMovingRight(false);
             animator.SetTrigger("death");
             StartCoroutine(DestroyAfterDelay(4f));
         }
@@ -95,7 +99,7 @@ public class ShootingEnemy : MonoBehaviour
     {
         if (animator == null)
         {
-            Debug.LogError("Animator component not found on ShootingEnemy.");
+            Debug.LogError("Patrolling animator component not found on ShootingEnemy.");
             return;
         }
         Debug.Log("SetPatrolling: " + isPatrolling);
@@ -106,7 +110,7 @@ public class ShootingEnemy : MonoBehaviour
     {
         if (animator == null)
         {
-            Debug.LogError("Animator component not found on ShootingEnemy.");
+            Debug.LogError("Shooting animator component not found on ShootingEnemy.");
             return;
         }
         Debug.Log("SetAttacking: " + isAttacking);

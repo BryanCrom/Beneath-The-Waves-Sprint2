@@ -76,8 +76,5 @@ public class NewAttack : BaseState
         bullet.GetComponent<Rigidbody>().velocity = shootDir * 40;
         Debug.Log("Shoot");
         shotTimer = 0;
-
-
-
     }
 }
