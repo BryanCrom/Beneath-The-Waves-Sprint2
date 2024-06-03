@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class ShootingEnemy : MonoBehaviour
 {
-
     private StateMach stateMach;
     private NavMeshAgent agent;
     private Animator animator;
@@ -18,19 +17,12 @@ public class ShootingEnemy : MonoBehaviour
     private string currentState;
 
     public int enemyHealth = 100;
-    //path to follow
     public Path path;
-
-    //for attack state
     public float sightDistance = 20f;
     public float fieldOfView = 85f;
-
     public Transform gunBarrel;
     public float fireRate = 2f;
 
-    //private bool isDead = false;
-
-    // Start is called before the first frame update
     void Start()
     {
         stateMach = GetComponent<StateMach>();
@@ -38,31 +30,33 @@ public class ShootingEnemy : MonoBehaviour
         stateMach.Initialise(this);
         player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator component not found on ShootingEnemy.");
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         canSeePlayer();
         currentState = stateMach.activeState.ToString();
     }
 
-
     public bool canSeePlayer()
     {
         if (player != null)
         {
-            //if player is close enough to be seen by the enemy
             if (Vector3.Distance(transform.position, player.transform.position) < sightDistance)
             {
                 Vector3 target = player.transform.position - transform.position;
-                float angle = Vector3.Angle(target, transform.forward);
+                float angle = Vector3.Angle(transform.forward, target);
 
                 if (angle >= -fieldOfView && angle <= fieldOfView)
                 {
                     Ray ray = new Ray(transform.position, target);
-                    RaycastHit hit = new RaycastHit();
-                    if (Physics.Raycast(ray, out hit, sightDistance)) 
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, sightDistance))
                     {
                         if (hit.transform.gameObject == player)
                         {
@@ -82,7 +76,10 @@ public class ShootingEnemy : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
-            //isDead = true;
+            SetPatrolling(false);
+            SetAttacking(false);
+            SetMovingLeft(false);
+            SetMovingRight(false);
             animator.SetTrigger("death");
             StartCoroutine(DestroyAfterDelay(4f));
         }
@@ -98,13 +95,47 @@ public class ShootingEnemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void SetPatrolling(bool isPatrolling)
+    {
+        if (animator == null)
+        {
+            Debug.LogError("Patrolling animator component not found on ShootingEnemy.");
+            return;
+        }
+        Debug.Log("SetPatrolling: " + isPatrolling);
+        animator.SetBool("isPatrolling", isPatrolling);
+    }
 
-    //public void SetPatrolling(bool isPatrolling)
-    //{
-    //    animator.SetBool("IsPatrolling", isPatrolling);
-    //}
-    //public void SetAttacking(bool isShooting)
-    //{
-    //    animator.SetBool("IsShooting", isShooting);
-    //}
+    public void SetAttacking(bool isAttacking)
+    {
+        if (animator == null)
+        {
+            Debug.LogError("Shooting animator component not found on ShootingEnemy.");
+            return;
+        }
+        Debug.Log("SetAttacking: " + isAttacking);
+        animator.SetBool("isShooting", isAttacking);
+    }
+
+    public void SetMovingLeft(bool isMovingLeft)
+    {
+        if (animator == null)
+        {
+            Debug.LogError("Animator component not found on ShootingEnemy.");
+            return;
+        }
+        Debug.Log("SetMovingLeft: " + isMovingLeft);
+        animator.SetBool("isMovingLeft", isMovingLeft);
+    }
+
+    public void SetMovingRight(bool isMovingRight)
+    {
+        if (animator == null)
+        {
+            Debug.LogError("Animator component not found on ShootingEnemy.");
+            return;
+        }
+        Debug.Log("SetMovingRight: " + isMovingRight);
+        animator.SetBool("isMovingRight", isMovingRight);
+    }
 }
