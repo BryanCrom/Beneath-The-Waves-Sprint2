@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     public bool canTakeDamage = false;
     public float damageCooldown = 1.5f;
 
-    void Start()
+    public void Start()
     {
         HP = MAXHP;
     }

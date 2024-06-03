@@ -16,16 +16,18 @@ public class Enemy : MonoBehaviour
 
     //enemy fix
     public float attackRange = 1.5f;
-    public int damage = 10;
+    public float damage = 10f;
     public float attackCooldown = 2.0f;
-    private bool canAttack = true;
+    public bool canAttack = true;
 
+    //different path for each enemy 
+    public Path path;
     //check if enemy dead 
     //fixes the issue when player walkes close to the enemy's body and still takes damage
-    private bool isDead = false;
+    public bool isDead = false;
 
     Transform player;
-    void Start()
+    public void Start()
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -61,7 +63,7 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void CheckPlayerinRange()
+    public void CheckPlayerinRange()
     {
         if (isDead) return;
 
@@ -84,10 +86,5 @@ public class Enemy : MonoBehaviour
         canAttack = false;
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
