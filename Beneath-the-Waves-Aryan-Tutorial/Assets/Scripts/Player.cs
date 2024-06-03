@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
         {
             print("Player is colliding w enemyhand");
             StartCoroutine(DamageCooldown());   
-            takeDamage(other.gameObject.GetComponent<FishmanHand>().damage);
+            takeDamage(10);
         }
     }
 
