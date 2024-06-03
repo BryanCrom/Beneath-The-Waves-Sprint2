@@ -14,10 +14,11 @@ public class MedKitTests
         var player = gameObject.AddComponent<Player>();
 
         player.HP = player.getMAXHP();
+        player.canTakeDamage = true;
         player.takeDamage(50f);
         player.healDamage(30f);
 
-        Assert.AreEqual(80f, player.getHP());
+        Assert.AreEqual(player.getMAXHP() - 20f, player.getHP());
     }
 
     // Test the heal method should not increase health past the max on 100f
@@ -28,6 +29,7 @@ public class MedKitTests
         var player = gameObject.AddComponent<Player>();
 
         player.HP = player.getMAXHP();
+        player.canTakeDamage = true;
         player.takeDamage(10f);
         player.healDamage(30f);
 
