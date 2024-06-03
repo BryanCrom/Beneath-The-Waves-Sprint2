@@ -6,8 +6,8 @@ public class PlayerMove : MonoBehaviour
 {
 
     private CharacterController myCC;
-    public float walkSpeed = 6f;
-    public float runSpeed = 9f;
+    public float walkSpeed = 10f;
+    public float runSpeed = 13f;
     public float jumpPower = 3f;
 
     public float defaultHeight = 2f;
@@ -16,6 +16,7 @@ public class PlayerMove : MonoBehaviour
 
     private Vector3 inputVector;
     private Vector3 movementVector;
+    [SerializeField]
     private float myGravity = 15f;
 
     private bool isRunning;
@@ -82,15 +83,15 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl))
         {
             myCC.height = crouchHeight;
-            walkSpeed = crouchSpeed;
             runSpeed = crouchSpeed;
+            walkSpeed = crouchSpeed;
 
         }
         else
         {
             myCC.height = defaultHeight;
-            walkSpeed = 6f;
-            runSpeed = 12f;
+            walkSpeed = 10f;
+            runSpeed = 13f;
         }
 
     }
