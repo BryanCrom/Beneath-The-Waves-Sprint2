@@ -5,9 +5,10 @@ using UnityEngine;
 public class EnemyDeath : MonoBehaviour
 {
     public GameObject coinPrefab;
-    public static event System.Action OnEnemyKilled; // Event for when an enemy is killed
-
-    private bool isDead = false; // Flag to track if the enemy is already dead
+    // Event for when an enemy is killed
+    public static event System.Action OnEnemyKilled; 
+    // Flag to track if the enemy is already dead
+    private bool isDead = false; 
 
     private void OnDestroy()
     {
@@ -33,7 +34,8 @@ public class EnemyDeath : MonoBehaviour
 
     private void TriggerOnEnemyKilled()
     {
-        isDead = true; // Set the flag to indicate that the enemy is dead
+        // Set the flag to indicate that the enemy is dead
+        isDead = true; 
         OnEnemyKilled?.Invoke();
     }
 }
