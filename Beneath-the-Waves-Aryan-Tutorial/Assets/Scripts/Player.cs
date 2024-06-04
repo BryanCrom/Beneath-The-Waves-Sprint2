@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
-using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +8,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float MAXHP = 100f;
+    private readonly float MAXHP = 100;
     public float HP;
     public float chipSpeed = 2f;
 
@@ -18,8 +17,12 @@ public class Player : MonoBehaviour
     public Image backHealthBar;
 
     //cooldown to take damage
-    public bool canTakeDamage = false;
+    public bool canTakeDamage = true;
     public float damageCooldown = 1.5f;
+
+    //Audio vars
+    public AudioClip hurtSound;
+    public AudioSource src;
 
     public void Start()
     {
@@ -57,11 +60,11 @@ public class Player : MonoBehaviour
 
     public void takeDamage(float damage)
     {
-
-        if (!canTakeDamage) return;
+        src.clip = hurtSound;
+        src.Play();
         HP -= damage;
 
-        if (HP <= 0f)
+        if (HP <= 0)
         {
             print("YOU ARE DEAD!");
         }
@@ -81,6 +84,16 @@ public class Player : MonoBehaviour
             HP = MAXHP;
         }
         lerpTimer = 0f;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("EnemyHand") && canTakeDamage == true)
+        {
+            print("Player is colliding w enemyhand");
+            StartCoroutine(DamageCooldown());   
+            takeDamage(10);
+        }
     }
 
     public float getHP()

@@ -23,6 +23,10 @@ public class ShootingEnemy : MonoBehaviour
     public Transform gunBarrel;
     public float fireRate = 2f;
 
+    //Audio vars
+    public AudioClip hurtSound;
+    public AudioSource src;
+
     void Start()
     {
         stateMach = GetComponent<StateMach>();
@@ -72,6 +76,8 @@ public class ShootingEnemy : MonoBehaviour
 
     public void takeDamage(int damage)
     {
+        src.clip = hurtSound;
+        src.Play();
         enemyHealth -= damage;
 
         if (enemyHealth <= 0)
