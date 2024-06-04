@@ -27,7 +27,9 @@ public class Enemy : MonoBehaviour
     //fixes the issue when player walkes close to the enemy's body and still takes damage
     public bool isDead = false;
 
-    //Transform player;
+    //Audio vars
+    public AudioClip hurtSound;
+    public AudioSource src;
     public void Start()
     {
         animator = GetComponent<Animator>();
@@ -44,6 +46,9 @@ public class Enemy : MonoBehaviour
     }
     public void takeDamage(int damage)
     {
+        src.clip = hurtSound;
+        src.Play();
+
         enemyHealth -= damage;
 
         if (enemyHealth <= 0)
