@@ -21,9 +21,12 @@ public class PlayerMove : MonoBehaviour
 
     private bool isRunning;
 
+    public HumbleMovementCalc calculator;
+
     void Start()
     {
         myCC = GetComponent<CharacterController>();
+        calculator = GetComponent<HumbleMovementCalc>();
     }
 
     void Update()
@@ -35,32 +38,22 @@ public class PlayerMove : MonoBehaviour
     void GetInput()
     {
         isRunning = Input.GetKey(KeyCode.LeftShift) && myCC.isGrounded || isRunning && !myCC.isGrounded;
-        inputVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
-        inputVector.Normalize();
-        inputVector = transform.TransformDirection(inputVector);
+        inputVector = transform.TransformDirection(calculator.CalcMovement(isRunning, Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), walkSpeed, runSpeed));
 
         float movementDirectionY = movementVector.y;
-        if (myCC.isGrounded)
+        if (!myCC.isGrounded)
         {
             if (isRunning)
             {
-                movementVector = (inputVector * runSpeed) + (Vector3.up * -myGravity);
+                movementVector = 0.6f * movementVector + 0.4f * inputVector;
             }
             else
             {
-                movementVector = (inputVector * walkSpeed) + (Vector3.up * -myGravity);
+                movementVector = 0.6f * inputVector - 0.6f * (Vector3.up * -myGravity);
             }
-        }
-        else
+        } else
         {
-            if (isRunning)
-            {
-                movementVector = 0.6f * movementVector + 0.4f * (inputVector * runSpeed) + (Vector3.up * -myGravity);
-            }
-            else
-            {
-                movementVector = 0.6f * (inputVector * walkSpeed) + 0.4f * (Vector3.up * -myGravity);
-            }
+            movementVector = inputVector + (Vector3.up * -myGravity);
         }
 
         // Jumping
