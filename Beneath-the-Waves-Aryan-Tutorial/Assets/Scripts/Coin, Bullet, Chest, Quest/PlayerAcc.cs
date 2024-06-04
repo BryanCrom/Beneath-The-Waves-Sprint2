@@ -12,6 +12,11 @@ public class PlayerAccount : MonoBehaviour
     public event System.Action<int> OnCoinsChanged;
     public event System.Action<int> OnBulletsChanged;
 
+    //Audio vars
+    public AudioClip coinSound;
+    public AudioClip ammoSound;
+    public AudioSource src;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -32,6 +37,8 @@ public class PlayerAccount : MonoBehaviour
             Debug.LogError("Attempt to add a negative amount of coins.");
             return;
         }
+        src.clip = coinSound;
+        src.Play();
         coins += amount;
         Debug.Log($"Coins added. Total coins: {coins}");
         UIManager.SafeUpdateCount(coins, UIManager.Instance.coinText, "Coins: ");
@@ -45,6 +52,8 @@ public class PlayerAccount : MonoBehaviour
             Debug.LogError("Attempt to add a negative amount of bullets.");
             return;
         }
+        src.clip = ammoSound;
+        src.Play();
         bullets += amount;
         Debug.Log($"Bullets added. Total bullets: {bullets}");
         UIManager.SafeUpdateCount(bullets, UIManager.Instance.ammoText, "Ammo: ");

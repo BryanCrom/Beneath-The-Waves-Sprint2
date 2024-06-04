@@ -1,9 +1,10 @@
 {
-    "name": "Scripts",
+    "name": "PlaymodeTests",
     "rootNamespace": "",
     "references": [
-        "UnityEditor.TestRunner",
         "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "Scripts",
         "Unity.TextMeshPro",
         "Unity.VisualScripting.State"
     ],
@@ -15,7 +16,9 @@
         "nunit.framework.dll"
     ],
     "autoReferenced": true,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }

@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     //animations
     private Animator animator;
     private NavMeshAgent agent;
+    private Player player;
 
     public int enemyHealth = 100;
     public NavMeshAgent Agent { get => agent; }
@@ -26,7 +27,7 @@ public class Enemy : MonoBehaviour
     //fixes the issue when player walkes close to the enemy's body and still takes damage
     public bool isDead = false;
 
-    Transform player;
+    //Transform player;
     public void Start()
     {
         animator = GetComponent<Animator>();

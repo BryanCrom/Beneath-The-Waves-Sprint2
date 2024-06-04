@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -25,6 +26,10 @@ public class Weapon : MonoBehaviour
 
     public ParticleSystem muzzleFlash;
     public Animator anims;
+
+    //Audio vars
+    public AudioSource src;
+    public AudioClip fireSound;
 
 
     public void Awake()
@@ -55,6 +60,10 @@ public class Weapon : MonoBehaviour
     private void FireWeapon()
     {
         readytoShoot = false;
+
+        src.clip = fireSound;
+        src.Play();
+
         anims.ResetTrigger("Firing");
         anims.SetTrigger("Firing");
         muzzleFlash.Play();
