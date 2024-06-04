@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -485,6 +485,7 @@ GameObject:
   - component: {fileID: 96293957}
   - component: {fileID: 96293959}
   - component: {fileID: 96293960}
+  - component: {fileID: 96293961}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -571,6 +572,7 @@ MonoBehaviour:
   crouchHeight: 1
   crouchSpeed: 3
   myGravity: 15
+  calculator: {fileID: 0}
 --- !u!114 &96293956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -655,6 +657,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fa4b2cb6d13f244a07608de581ac44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinSound: {fileID: 0}
+  ammoSound: {fileID: 0}
+  src: {fileID: 0}
 --- !u!114 &96293960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,6 +674,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 378419749}
   fadeDuration: 5
+--- !u!114 &96293961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96293950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71bd2c28e23a52499aeb086361b73eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 10
+  runSpeed: 13
+  inputVector: {x: 0, y: 0, z: 0}
 --- !u!1 &115344212 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2897614844690329465, guid: 870886ca771636d4cbd8c150e5b57b78, type: 3}
@@ -3621,6 +3641,8 @@ MonoBehaviour:
   fieldOfView: 85
   gunBarrel: {fileID: 1513660041}
   fireRate: 2
+  hurtSound: {fileID: 0}
+  src: {fileID: 0}
 --- !u!95 &551136498
 Animator:
   serializedVersion: 5
@@ -5544,6 +5566,8 @@ MonoBehaviour:
   spread: 1
   muzzleFlash: {fileID: 893497242}
   anims: {fileID: 834929586}
+  src: {fileID: 0}
+  fireSound: {fileID: 0}
 --- !u!95 &834929586
 Animator:
   serializedVersion: 5

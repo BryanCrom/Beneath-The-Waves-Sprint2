@@ -27,31 +27,39 @@ public class MainMenuTest
     [UnityTest]
     public IEnumerator PlayGame_LoadsNextScene()
     {
-        // Arrange: Add a dummy scene to the build settings for testing
+        // Arrange: Ensure the test starts with the first scene
         SceneManager.LoadScene(0);
-        yield return null;
+        yield return new WaitForSeconds(1);  // Allow time for the scene to load
+
+        Debug.Log($"Current scene before PlayGame: {SceneManager.GetActiveScene().buildIndex}");
 
         // Act: Call the PlayGame method
         mainMenu.PlayGame();
-        yield return null;
+        yield return new WaitForSeconds(1);  // Allow time for the scene transition
+
+        Debug.Log($"Current scene after PlayGame: {SceneManager.GetActiveScene().buildIndex}");
 
         // Assert: Check if the next scene is loaded
-        Assert.AreEqual(1, SceneManager.GetActiveScene().buildIndex);
+        Assert.AreEqual(1, SceneManager.GetActiveScene().buildIndex, $"Expected scene index: 1, but got: {SceneManager.GetActiveScene().buildIndex}");
     }
 
     [UnityTest]
     public IEnumerator MultiPlayer_LoadsMultiplayerScene()
     {
-        // Arrange: Add a dummy scene to the build settings for testing
+        // Arrange: Ensure the test starts with the first scene
         SceneManager.LoadScene(0);
-        yield return null;
+        yield return new WaitForSeconds(1);  // Allow time for the scene to load
+
+        Debug.Log($"Current scene before MultiPlayer: {SceneManager.GetActiveScene().buildIndex}");
 
         // Act: Call the MultiPlayer method
         mainMenu.MultiPlayer();
-        yield return null;
+        yield return new WaitForSeconds(1);  // Allow time for the scene transition
+
+        Debug.Log($"Current scene after MultiPlayer: {SceneManager.GetActiveScene().buildIndex}");
 
         // Assert: Check if the multiplayer scene is loaded
-        Assert.AreEqual(2, SceneManager.GetActiveScene().buildIndex);
+        Assert.AreEqual(2, SceneManager.GetActiveScene().buildIndex, $"Expected scene index: 2, but got: {SceneManager.GetActiveScene().buildIndex}");
     }
 
     [Test]
