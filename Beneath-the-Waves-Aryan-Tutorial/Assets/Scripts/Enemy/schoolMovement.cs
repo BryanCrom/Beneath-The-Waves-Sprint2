@@ -9,7 +9,7 @@ public class SchoolMovement : MonoBehaviour
     public float forwardSpeed = 0.1f;
     public float smoothing = 0.8f;
     private float previousTurn = 0.0f;
-    private int health = 10;
+    private int health = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +27,12 @@ public class SchoolMovement : MonoBehaviour
     public void takeDamage(int damage)
     {
         health -= damage;
-        transform.localScale = transform.localScale * (1f - ((10f - health) * 0.2f));
+        transform.localScale = transform.localScale * (1f - ((5f - health) * 0.2f));
         Debug.Log(health);
-        Debug.Log((1f - ((10f - health) * 0.2f)));
+        Debug.Log((1f - ((5f - health) * 0.2f)));
+        if (health == 1)
+        {
+            Destroy(gameObject);
+        }
     }
 }
