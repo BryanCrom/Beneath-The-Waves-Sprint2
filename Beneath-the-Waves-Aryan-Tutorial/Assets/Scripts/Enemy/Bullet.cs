@@ -49,5 +49,10 @@ public class Bullet : MonoBehaviour
             Debug.Log("Hit Wall: " + collision.gameObject.name);
             Destroy(gameObject);
         }
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            collision.gameObject.GetComponent<SchoolMovement>().takeDamage(1);
+            Destroy(gameObject);
+        }
     }
 }
