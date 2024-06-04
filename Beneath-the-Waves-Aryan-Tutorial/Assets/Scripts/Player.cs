@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     public AudioClip hurtSound;
     public AudioSource src;
 
-    void Start()
+    public void Start()
     {
         HP = MAXHP;
     }
