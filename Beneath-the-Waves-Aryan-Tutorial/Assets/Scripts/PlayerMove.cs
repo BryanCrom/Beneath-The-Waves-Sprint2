@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
     private CharacterController myCC;
     public float walkSpeed = 10f;
     public float runSpeed = 13f;
-    public float jumpPower = 3f;
+    public float jumpPower = 10f;
 
     public float defaultHeight = 2f;
     public float crouchHeight = 1f;

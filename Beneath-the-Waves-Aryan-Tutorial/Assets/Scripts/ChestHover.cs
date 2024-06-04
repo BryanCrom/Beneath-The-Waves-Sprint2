@@ -6,7 +6,7 @@ using TMPro;
 public class ChestHover : MonoBehaviour
 {
     public TextMeshProUGUI hoverLabel;
-    public float hoverDistance = 3f;
+    public float hoverDistance = 10f;
     private Transform playerTransform;
     private Camera mainCamera;
 
@@ -59,4 +59,3 @@ public class ChestHover : MonoBehaviour
         hoverLabel.gameObject.SetActive(false);
     }
 }
-
