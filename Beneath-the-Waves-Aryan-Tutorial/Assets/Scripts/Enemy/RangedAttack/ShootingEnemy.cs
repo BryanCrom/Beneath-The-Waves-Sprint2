@@ -19,7 +19,7 @@ public class ShootingEnemy : MonoBehaviour
     public int enemyHealth = 100;
     public Path path;
     public float sightDistance = 20f;
-    public float fieldOfView = 85f;
+    public float fieldOfView = 65f;
     public Transform gunBarrel;
     public float fireRate = 2f;
 
@@ -31,14 +31,14 @@ public class ShootingEnemy : MonoBehaviour
     {
         stateMach = GetComponent<StateMach>();
         agent = GetComponent<NavMeshAgent>();
-        stateMach.Initialise(this);
-        player = GameObject.FindGameObjectWithTag("Player");
         animator = GetComponent<Animator>();
-
         if (animator == null)
         {
             Debug.LogError("Animator component not found on ShootingEnemy.");
         }
+
+        stateMach.Initialise(this);
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
@@ -82,12 +82,10 @@ public class ShootingEnemy : MonoBehaviour
 
         if (enemyHealth <= 0)
         {
-            SetPatrolling(false);
-            SetAttacking(false);
-            SetMovingLeft(false);
-            SetMovingRight(false);
+            StopAllCoroutines();
+
             animator.SetTrigger("death");
-            StartCoroutine(DestroyAfterDelay(4f));
+            StartCoroutine(DestroyAfterDelay(3f));
         }
         else
         {
