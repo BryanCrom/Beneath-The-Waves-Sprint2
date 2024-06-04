@@ -1,16 +1,15 @@
 {
-    "name": "PlayMode",
+    "name": "Tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "Scripts",
-        "Unity.AI.Navigation"
+		"UnityEditor.TestRunner",
+        "MainMenuAssembly"
     ],
-    "includePlatforms": [],
-    "excludePlatforms": [
-        "WindowsStandalone64"
+    "includePlatforms": [
+        "Editor"
     ],
+    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
