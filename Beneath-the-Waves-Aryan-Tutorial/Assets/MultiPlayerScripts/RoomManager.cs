@@ -3,80 +3,78 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class RoomManager : MonoBehaviourPunCallbacks
+public class RoomManager : MonoBehaviourPunCallbacks // Inherits from MonoBehaviourPunCallbacks for networking callbacks
 {
-    public static RoomManager instance;
-    public GameObject player;
-    [Space]
-    public Transform[] spawnPoints;
+  public static RoomManager instance; // Singleton instance for easy access
 
-    [Space]
-    public GameObject roomCam;
+  public GameObject player; // Prefab for the player object
 
-    [Space]
-    public GameObject nameUI;
-    public GameObject connectingUI;
+  [Space]
+  public Transform[] spawnPoints; // Array of potential spawn locations for players
 
-    private string nickname = "Unnamed";
+  [Space]
+  public GameObject roomCam; // Reference to the room camera (likely for pre-game view)
 
-    void Awake()
-    {
-        instance = this;
-    }
+  [Space]
+  public GameObject nameUI; // UI element for entering nickname
+  public GameObject connectingUI; // UI element for connection progress
 
-    public void ChangeNickname(string _name)
-    {
-        nickname = _name;
+  private string nickname = "Unnamed"; // Default player nickname
 
-    }
+  void Awake()
+  {
+    instance = this; // Set this instance as the singleton
+  }
 
-    public void JoinRoomButtonPressed()
-    {
-        Debug.Log("Connecting...");
-        PhotonNetwork.ConnectUsingSettings();
+  public void ChangeNickname(string _name) // Function to change player nickname
+  {
+    nickname = _name;
+  }
 
-        nameUI.SetActive(false);
-        connectingUI.SetActive(true);
-    }
+  public void JoinRoomButtonPressed() // Function triggered when "Join Room" button is pressed
+  {
+    Debug.Log("Connecting..."); // Log message for debugging
+    PhotonNetwork.ConnectUsingSettings(); // Initiate connection to Photon server
 
-    void Start()
-    {
-        
-    }
+    nameUI.SetActive(false); // Deactivate nickname UI
+    connectingUI.SetActive(true); // Activate connection progress UI
+  }
 
-    public override void OnConnectedToMaster()
-    {
-        base.OnConnectedToMaster();
-        Debug.Log("Connected to Server");
-        PhotonNetwork.JoinLobby();
-    }
 
-    public override void OnJoinedLobby()
-    {
-        base.OnJoinedLobby();
-        PhotonNetwork.JoinOrCreateRoom("test", null, null);
-        Debug.Log("We are connected and in the lobby");
-    }
 
-    public override void OnJoinedRoom()
-    {
-        base.OnJoinedRoom();
-        Debug.Log("We are connected and in the room");
+  public override void OnConnectedToMaster() // Callback when connected to Master server
+  {
+    base.OnConnectedToMaster();
+    Debug.Log("Connected to Server");
+    PhotonNetwork.JoinLobby(); // Join the Photon lobby
+  }
 
-        roomCam.SetActive(false);
+  public override void OnJoinedLobby() // Callback when joined the lobby
+  {
+    base.OnJoinedLobby();
+    PhotonNetwork.JoinOrCreateRoom("test", null, null); // Join or create a room named "test"
+    Debug.Log("We are connected and in the lobby");
+  }
 
-        SpawnPlayer();
-    }
+  public override void OnJoinedRoom() // Callback when joined a room
+  {
+    base.OnJoinedRoom();
+    Debug.Log("We are connected and in the room");
 
-    public void SpawnPlayer()
-    {
-        Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)];
+    roomCam.SetActive(false); // Deactivate room camera (likely not needed anymore)
 
-        GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity);
-        _player.GetComponent<PlayerSetup>().IsLocalPlayer();
-        _player.GetComponent<Health>().isLocalPlayer = true;
+    SpawnPlayer(); // Spawn the player object
+  }
 
-        _player.GetComponent<PhotonView>().RPC("SetNickname",RpcTarget.AllBuffered, nickname);
-        PhotonNetwork.LocalPlayer.NickName = nickname;
-    }
+  public void SpawnPlayer() // Function to spawn the player object
+  {
+    Transform spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)]; // Choose a random spawn point
+
+    GameObject _player = PhotonNetwork.Instantiate(player.name, spawnPoint.position, Quaternion.identity); // Instantiate the player prefab
+    _player.GetComponent<PlayerSetup>().IsLocalPlayer(); // Call IsLocalPlayer() function on spawned player (likely for setting up local player properties)
+    _player.GetComponent<Health>().isLocalPlayer = true; // Set health component's isLocalPlayer to true for the local player
+
+    _player.GetComponent<PhotonView>().RPC("SetNickname", RpcTarget.AllBuffered, nickname); // Call a remote procedure call (RPC) to set the nickname for all players
+    PhotonNetwork.LocalPlayer.NickName = nickname; // Set the nickname for the local player
+  }
 }
