@@ -126,17 +126,4 @@ public class PlayerEnemyInteractionTests
         // Assert
         Assert.IsTrue(enemy.isDead);
     }
-
-    [Test]
-    public void EnemyInitializationHealth()
-    {
-        // Set wrong health to ensure test failure
-        int expectedHealth = 110;
-
-        // actual health enemy has when initialzed 
-        int actualHealth = enemy.enemyHealth;
-
-        // Assert
-        Assert.AreEqual(expectedHealth, actualHealth, "Enemy's initial health is not set correctly.");
-    }
 }
