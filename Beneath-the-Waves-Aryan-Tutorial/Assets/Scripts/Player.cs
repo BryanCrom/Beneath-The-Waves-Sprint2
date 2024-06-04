@@ -29,6 +29,10 @@ public class Player : MonoBehaviour
     //player death
     public bool isPDead;
     public GameObject bloodScreen;
+
+    //sounds
+    public AudioClip hurtSound;
+    public AudioSource src;
     public void Start()
     {
         HP = MAXHP;
@@ -65,6 +69,8 @@ public class Player : MonoBehaviour
 
     public void takeDamage(float damage)
     {
+        src.clip = hurtSound;
+        src.Play();
 
         if (!canTakeDamage) return;
         HP -= damage;
