@@ -10,12 +10,12 @@ TagManager:
   - Waypoints
   - EnemyHand
   - PlayerModel
-  - Boss
+  - Weapon
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Interactable
   - Water
   - UI
   - Gun
