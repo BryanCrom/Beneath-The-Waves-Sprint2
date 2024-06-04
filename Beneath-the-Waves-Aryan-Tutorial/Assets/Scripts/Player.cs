@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using System.Xml;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -14,13 +17,18 @@ public class Player : MonoBehaviour
     public float chipSpeed = 2f;
 
     private float lerpTimer;
-    public Image frontHealthBar;
-    public Image backHealthBar;
+    public UnityEngine.UI.Image frontHealthBar;
+    public UnityEngine.UI.Image backHealthBar;
+
+    public GameObject DeathMsg;
 
     //cooldown to take damage
     public bool canTakeDamage = false;
     public float damageCooldown = 1.5f;
 
+    //player death
+    public bool isPDead;
+    public GameObject bloodScreen;
     public void Start()
     {
         HP = MAXHP;
@@ -64,15 +72,59 @@ public class Player : MonoBehaviour
         if (HP <= 0f)
         {
             print("YOU ARE DEAD!");
+            PlayerDead();
+            isPDead = true;
         }
         else
         {
             print("HIT!");
+            StartCoroutine(BloodyScreen());
         }
 
         StartCoroutine(DamageCooldown());
         lerpTimer = 0f;
     }
+
+    private IEnumerator BloodyScreen()
+    {
+        if (bloodScreen.activeInHierarchy == false)
+        {
+            bloodScreen.SetActive(true);
+        }
+
+        //Blood Fading Effect, copy pasted from online resource
+        var image = bloodScreen.GetComponentInChildren<UnityEngine.UI.Image>();
+
+        // Set the initial alpha value to 1 (fully visible).
+        Color startColor = image.color;
+        startColor.a = 1f;
+        image.color = startColor;
+
+        float duration = 3f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            // Calculate the new alpha value using Lerp.
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / duration);
+
+            // Update the color with the new alpha value.
+            Color newColor = image.color;
+            newColor.a = alpha;
+            image.color = newColor;
+
+            // Increment the elapsed time.
+            elapsedTime += Time.deltaTime;
+
+            yield return null; ; // Wait for the next frame.
+        }
+
+        if (bloodScreen.activeInHierarchy)
+        {
+            bloodScreen.SetActive(false);   
+        }
+    }
+
     public void healDamage(float heal)
     {
         HP += heal;
@@ -99,5 +151,26 @@ public class Player : MonoBehaviour
         canTakeDamage = false;
         yield return new WaitForSeconds(damageCooldown);
         canTakeDamage = true;
+    }
+
+    private void PlayerDead()
+    {
+        //disable the scripts for movement 
+        GetComponent<MouseLook>().enabled = false;
+        GetComponent<PlayerMove>().enabled = false;
+
+        //dying animation, the camera falls in the floor
+        GetComponentInChildren<Animator>().enabled = true;
+
+        //get death screen
+        GetComponent<DeathScreen>().StartFade();
+
+        StartCoroutine(ShowDeathMsg());
+    }
+
+    private IEnumerator ShowDeathMsg()
+    {
+        yield return new WaitForSeconds(1f);
+        DeathMsg.gameObject.SetActive(true);
     }
 }

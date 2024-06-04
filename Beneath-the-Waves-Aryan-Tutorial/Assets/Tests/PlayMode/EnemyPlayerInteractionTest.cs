@@ -4,6 +4,7 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.TestTools;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerEnemyInteractionTests
 {
@@ -35,6 +36,9 @@ public class PlayerEnemyInteractionTests
         // Mock setting up the enemy with necessary components
         var agent = enemyObject.AddComponent<NavMeshAgent>();
         var animator = enemyObject.AddComponent<Animator>();
+
+        player.bloodScreen = new GameObject("BloodScreen");
+        player.bloodScreen.AddComponent<UnityEngine.UI.Image>(); // Add an Image component
 
         // Ensure necessary initialization for scripts
         player.Start(); // Call the Start method to initialize
@@ -105,7 +109,6 @@ public class PlayerEnemyInteractionTests
         float initialPlayerHP = player.getHP();
         enemy.damage = 10f;
 
-        // Act
         player.takeDamage(enemy.damage);
         Debug.Log(initialPlayerHP - enemy.damage + ": player health after damage");
         // Assert
@@ -118,10 +121,22 @@ public class PlayerEnemyInteractionTests
         // Arrange
         int damageAmount = enemy.enemyHealth + 10;
 
-        // Act
         enemy.takeDamage(damageAmount);
 
         // Assert
         Assert.IsTrue(enemy.isDead);
+    }
+
+    [Test]
+    public void EnemyInitializationHealth()
+    {
+        // Set wrong health to ensure test failure
+        int expectedHealth = 110;
+
+        // actual health enemy has when initialzed 
+        int actualHealth = enemy.enemyHealth;
+
+        // Assert
+        Assert.AreEqual(expectedHealth, actualHealth, "Enemy's initial health is not set correctly.");
     }
 }
