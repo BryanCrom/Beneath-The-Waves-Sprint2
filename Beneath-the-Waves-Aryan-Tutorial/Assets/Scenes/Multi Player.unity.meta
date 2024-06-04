@@ -1,9 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Beneath-the-Waves-Aryan-Tutorial/Assets/JMO Assets/Cartoon FX FREE (old legacy effects).unitypackage.meta
 <<<<<<<< HEAD:Beneath-the-Waves-Aryan-Tutorial/Assets/JMO Assets/Cartoon FX FREE (old legacy effects).unitypackage.meta
 guid: b18b93d4b5d00384ba417df18aeac5a3
 ========
 guid: 91cbaf234bc310a479f4ad59b2b0830e
 >>>>>>>> d25bccdd400095e39262344e5b15338fe985a486:Beneath-the-Waves-Aryan-Tutorial/Assets/InitTestScene638530885901466674.unity.meta
+=======
+guid: 9380a14ab3d75ee41bd452a9fbfb02dc
+>>>>>>> parent of 112973b (Unit tests):Beneath-the-Waves-Aryan-Tutorial/Assets/Scenes/Multi Player.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
