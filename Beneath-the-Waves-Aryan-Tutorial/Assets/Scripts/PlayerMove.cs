@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-
     private CharacterController myCC;
     public float walkSpeed = 10f;
     public float runSpeed = 13f;
@@ -27,18 +26,22 @@ public class PlayerMove : MonoBehaviour
     {
         myCC = GetComponent<CharacterController>();
         calculator = GetComponent<HumbleMovementCalc>();
+        Debug.Log("PlayerMove script initialized.");
     }
 
     void Update()
     {
         GetInput();
         MovePlayer();
+        Debug.Log($"PlayerMove Update: Position {transform.position}");
     }
 
     void GetInput()
     {
         isRunning = Input.GetKey(KeyCode.LeftShift) && myCC.isGrounded || isRunning && !myCC.isGrounded;
         inputVector = transform.TransformDirection(calculator.CalcMovement(isRunning, Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), walkSpeed, runSpeed));
+
+        Debug.Log($"GetInput: inputVector {inputVector}");
 
         float movementDirectionY = movementVector.y;
         if (!myCC.isGrounded)
@@ -51,12 +54,12 @@ public class PlayerMove : MonoBehaviour
             {
                 movementVector = 0.6f * inputVector - 0.6f * (Vector3.up * -myGravity);
             }
-        } else
+        }
+        else
         {
             movementVector = inputVector + (Vector3.up * -myGravity);
         }
 
-        // Jumping
         if (Input.GetButton("Jump") && myCC.isGrounded)
         {
             movementVector.y = jumpPower;
@@ -66,19 +69,16 @@ public class PlayerMove : MonoBehaviour
             movementVector.y = movementDirectionY;
         }
 
-        // In the air
         if (!myCC.isGrounded)
         {
             movementVector.y -= myGravity * Time.deltaTime;
         }
 
-        // Crouching
         if (Input.GetKey(KeyCode.LeftControl))
         {
             myCC.height = crouchHeight;
             runSpeed = crouchSpeed;
             walkSpeed = crouchSpeed;
-
         }
         else
         {
@@ -87,10 +87,12 @@ public class PlayerMove : MonoBehaviour
             runSpeed = 13f;
         }
 
+        Debug.Log($"GetInput: movementVector {movementVector}");
     }
 
     void MovePlayer()
     {
         myCC.Move(movementVector * Time.deltaTime);
+        Debug.Log($"MovePlayer: Position {transform.position}");
     }
 }

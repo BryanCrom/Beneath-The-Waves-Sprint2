@@ -1,30 +1,36 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public void ReloadScene()
+    private Transform spawnPoint;
+
+    private void Start()
     {
-        // Get the current active scene and reload it
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-        MovePlayerToPosition(new Vector3(22f, 3f, -40f));
-
+        spawnPoint = GameObject.Find("SpawnPoint").transform;
+        if (spawnPoint == null)
+        {
+            Debug.LogError("SpawnPoint not found in the scene.");
+        }
     }
 
-    private void MovePlayerToPosition(Vector3 newPosition)
+    public void ReloadScene()
     {
-        // Find the player GameObject in the scene
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        StartCoroutine(ReloadSceneCoroutine());
+    }
 
-        // If player GameObject exists, move it to the specified position
-        if (player != null)
+    private IEnumerator ReloadSceneCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        yield return new WaitForEndOfFrame();
+
+        Player player = FindObjectOfType<Player>();
+        if (player != null && spawnPoint != null)
         {
-            player.transform.position = newPosition;
-        }
-        else
-        {
-            Debug.LogWarning("Player GameObject not found in the scene.");
+            player.transform.position = spawnPoint.position;
+            Debug.Log($"Player position after scene reload: {player.transform.position}");
         }
     }
 }

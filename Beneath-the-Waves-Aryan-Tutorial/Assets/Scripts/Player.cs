@@ -1,18 +1,9 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
-using System.Xml;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField]
-    private float MAXHP = 100f;
+    [SerializeField] private float MAXHP = 100f;
     public float HP;
     public float chipSpeed = 2f;
 
@@ -22,34 +13,58 @@ public class Player : MonoBehaviour
 
     public GameObject DeathMsg;
 
-    //cooldown to take damage
     public bool canTakeDamage = false;
     public float damageCooldown = 1.5f;
 
-    //player death
     public bool isPDead;
     public GameObject bloodScreen;
 
-    //sounds
     public AudioClip hurtSound;
     public AudioSource src;
 
     private GameController gameController;
 
+    private Transform spawnPoint;
+
     public void Start()
     {
         HP = MAXHP;
-        StartCoroutine(CheckInitialization());
-
         gameController = FindObjectOfType<GameController>();
         if (gameController == null)
         {
             Debug.LogError("GameController not found in the scene.");
         }
 
+        spawnPoint = GameObject.Find("SpawnPoint").transform;
+        if (spawnPoint == null)
+        {
+            Debug.LogError("SpawnPoint not found in the scene.");
+        }
+        else
+        {
+            transform.position = spawnPoint.position;
+            Debug.Log($"Player spawned at: {transform.position}");
+        }
 
+        StartCoroutine(CheckInitialization());
+
+        //testing
+        GetComponent<MouseLook>().enabled = false;
+        GetComponent<PlayerMove>().enabled = false;
+
+        // Re-enable MouseLook script and test
+        StartCoroutine(EnableComponentAfterDelay<MouseLook>(2f));
+
+        // Then re-enable PlayerMove script and test
+        StartCoroutine(EnableComponentAfterDelay<PlayerMove>(4f));
     }
 
+    private IEnumerator EnableComponentAfterDelay<T>(float delay) where T : MonoBehaviour
+    {
+        yield return new WaitForSeconds(delay);
+        GetComponent<T>().enabled = true;
+        Debug.Log($"{typeof(T).Name} enabled.");
+    }
     void Update()
     {
         HP = Mathf.Clamp(HP, 0, MAXHP);
@@ -110,10 +125,7 @@ public class Player : MonoBehaviour
             bloodScreen.SetActive(true);
         }
 
-        //Blood Fading Effect, copy pasted from online resource
         var image = bloodScreen.GetComponentInChildren<UnityEngine.UI.Image>();
-
-        // Set the initial alpha value to 1 (fully visible).
         Color startColor = image.color;
         startColor.a = 1f;
         image.color = startColor;
@@ -123,18 +135,13 @@ public class Player : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            // Calculate the new alpha value using Lerp.
             float alpha = Mathf.Lerp(1f, 0f, elapsedTime / duration);
-
-            // Update the color with the new alpha value.
             Color newColor = image.color;
             newColor.a = alpha;
             image.color = newColor;
-
-            // Increment the elapsed time.
             elapsedTime += Time.deltaTime;
 
-            yield return null; ; // Wait for the next frame.
+            yield return null;
         }
 
         if (bloodScreen.activeInHierarchy)
@@ -163,7 +170,6 @@ public class Player : MonoBehaviour
         return MAXHP;
     }
 
-    //add cooldown 
     private IEnumerator DamageCooldown()
     {
         canTakeDamage = false;
@@ -173,14 +179,11 @@ public class Player : MonoBehaviour
 
     private void PlayerDead()
     {
-        //disable the scripts for movement 
         GetComponent<MouseLook>().enabled = false;
         GetComponent<PlayerMove>().enabled = false;
 
-        //dying animation, the camera falls in the floor
         GetComponentInChildren<Animator>().enabled = true;
 
-        //get death screen
         GetComponent<DeathScreen>().StartFade();
 
         StartCoroutine(ShowDeathMsg());
@@ -194,17 +197,13 @@ public class Player : MonoBehaviour
 
     private IEnumerator CheckInitialization()
     {
-        // Wait for a short period to allow for initialization
         yield return new WaitForSeconds(2f);
 
-        // Check if the player is stuck at (0, 0, 0)
         if (transform.position == Vector3.zero)
         {
-            // Reload the scene
-            gameController.ReloadScene();
+            Debug.Log("Player is stuck at (0,0,0), setting to spawn position");
+            transform.position = spawnPoint.position;
         }
+        Debug.Log($"Player position after CheckInitialization: {transform.position}");
     }
-
-    // Method to reload the scene
-
 }
