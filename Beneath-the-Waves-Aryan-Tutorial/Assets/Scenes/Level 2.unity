@@ -32810,8 +32810,8 @@ MonoBehaviour:
   canAttack: 1
   path: {fileID: 701792993}
   isDead: 0
-  hurtSound: {fileID: 0}
-  src: {fileID: 0}
+  hurtSound: {fileID: 8300000, guid: 2d10d1b382e5d524e95084922472e5bd, type: 3}
+  src: {fileID: 2103263432}
 --- !u!195 &1146969334
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -43369,7 +43369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86506bb713ffc054ebfc8217012e7929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneBuildIndex: 5
+  sceneBuildIndex: 4
 --- !u!65 &1509269898
 BoxCollider:
   m_ObjectHideFlags: 0

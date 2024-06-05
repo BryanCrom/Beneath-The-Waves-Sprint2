@@ -33,9 +33,21 @@ public class Player : MonoBehaviour
     //sounds
     public AudioClip hurtSound;
     public AudioSource src;
+
+    private GameController gameController;
+
     public void Start()
     {
         HP = MAXHP;
+        StartCoroutine(CheckInitialization());
+
+        gameController = FindObjectOfType<GameController>();
+        if (gameController == null)
+        {
+            Debug.LogError("GameController not found in the scene.");
+        }
+
+
     }
 
     void Update()
@@ -127,7 +139,7 @@ public class Player : MonoBehaviour
 
         if (bloodScreen.activeInHierarchy)
         {
-            bloodScreen.SetActive(false);   
+            bloodScreen.SetActive(false);
         }
     }
 
@@ -179,4 +191,20 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1f);
         DeathMsg.gameObject.SetActive(true);
     }
+
+    private IEnumerator CheckInitialization()
+    {
+        // Wait for a short period to allow for initialization
+        yield return new WaitForSeconds(2f);
+
+        // Check if the player is stuck at (0, 0, 0)
+        if (transform.position == Vector3.zero)
+        {
+            // Reload the scene
+            gameController.ReloadScene();
+        }
+    }
+
+    // Method to reload the scene
+
 }
